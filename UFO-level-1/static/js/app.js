@@ -1,13 +1,13 @@
 // October 30, 2019
 // Jadd Cheng
 
-// Define data from data.js
+// Define variable to hold in data.js.
 const tableData = data;
 
 // Get reference to table body.
 let tbody = d3.select("tbody");
 
-// Populate the site with the whole data table.
+// Render table with the wholel data set.
 data.forEach((ufoReport) => {
     const row = tbody.append("tr");
     for (key in ufoReport){
@@ -16,13 +16,15 @@ data.forEach((ufoReport) => {
     }
 });
 
-// Select the filter button.
+// Select the filter button element.
 const filterBtn = d3.select("#filter-btn");
 
 // Event handler
 filterBtn.on("click", function(){
     
     // Prevent page from refreshing
+    d3.event.preventDefault();
+    
     // Select the input element and get the raw HTML node
     
     // grab references to the input element and the output div
