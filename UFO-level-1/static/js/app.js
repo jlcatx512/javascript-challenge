@@ -5,10 +5,10 @@
 const tableData = data;
 
 // Get reference to table body.
-let tbody = d3.select("tbody");
+const tbody = d3.select("tbody");
 
-// Render table with the wholel data set.
-data.forEach((ufoReport) => {
+// Render table with the whole data set.
+tableData.forEach((ufoReport) => {
     const row = tbody.append("tr");
     for (key in ufoReport){
         const cell = tbody.append("td");
@@ -16,18 +16,19 @@ data.forEach((ufoReport) => {
     }
 });
 
+// Display length of data array in console.
+console.log("The length of the data array is: " + data.length)
+
 // Select the filter button element.
 const filterBtn = d3.select("#filter-btn");
 
-// Event handler
+// Event handler for button click.
 filterBtn.on("click", function(){
     
-    // Prevent page from refreshing
+    // Prevent page from refreshing with d3.
     d3.event.preventDefault();
-    
-    // Select the input element and get the raw HTML node
-    
-    // grab references to the input element and the output div
+
+    // Select the input element and get the raw HTML node    
     // const inputElement = d3.select("#patient-form-input");
     const inputElement = d3.select("#datetime.form-control");
 
@@ -35,24 +36,24 @@ filterBtn.on("click", function(){
     // const inputValue = inputElement.property("value");
     const inputDate = inputElement.property("value");
 
-    // console
-    console.log(inputDate);
+    // Display value in console.
+    console.log('inputDate is ' + inputDate);
 
     // Filter data for objects with matching date.
-    const filteredData = data.filter(data => data.datetime == inputDate);
+    const filteredData = tableData.filter(tableData => tableData.datetime === inputDate);
 
-    // console display filterData array of objects
+    // Display filterData array in console.
     console.log(filteredData);
     
-    // Redraw/update table
+    // Clear table.
+    d3.select("tbody").html("")
     
-    // remove? --> should be remove everything after tbody.
+    // Re-render table with filtered data.
     filteredData.forEach((ufoReport) => {
         const row = tbody.append("tr");
         for (key in ufoReport){
             const cell = tbody.append("td");
             cell.text(ufoReport[key]);
-            // row.append("td").text(weatherReport[key]);
         }
     });
 });
