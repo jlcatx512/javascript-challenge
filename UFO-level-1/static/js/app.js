@@ -1,7 +1,7 @@
 // October 30, 2019
 // Jadd Cheng
 
-// Define variable to hold in data.js.
+// Define variable to hold data from data.js.
 const tableData = data;
 
 // Get reference to table body.
@@ -22,21 +22,19 @@ console.log("The length of the data array is: " + data.length)
 // Select the filter button element.
 const filterBtn = d3.select("#filter-btn");
 
-// Event handler for button click.
+// Create an event handler and function to trigger on button click.
 filterBtn.on("click", function(){
     
-    // Prevent page from refreshing with d3.
+    // Prevent page from reloading using d3.
     d3.event.preventDefault();
 
     // Select the input element and get the raw HTML node    
-    // const inputElement = d3.select("#patient-form-input");
     const inputElement = d3.select("#datetime.form-control");
 
     // Get the value property of the input element, i.e. date.
-    // const inputValue = inputElement.property("value");
     const inputDate = inputElement.property("value");
 
-    // Display value in console.
+    // Display inputDate value in console.
     console.log('inputDate is ' + inputDate);
 
     // Filter data for objects with matching date. Stick to strict equality.
@@ -46,14 +44,15 @@ filterBtn.on("click", function(){
     console.log("Length of filteredData is " + filteredData.length)
     console.log(filteredData);
 
-    if (filteredData > 0) {
-        //  block of code to be executed if the condition is true
-        d3.select("tbody").html("NO RESULTS!")
-        } else {
-        
-        //  block of code to be executed if the condition is false
+    // If array is less than one one just clear the table to indicate no results.
+    // Else, render new table with filtered data.
+    if (filteredData.length < 1) {
+        //  Clear table.
+        d3.select("tbody").html("");
+        } else {       
+        //  Clear table.
         d3.select("tbody").html("")
-
+        // Render new table with filtered data.
         filteredData.forEach((ufoReport) => {
             const row = tbody.append("tr");
             for (key in ufoReport){
@@ -62,16 +61,4 @@ filterBtn.on("click", function(){
             }
         });
       }
-    
-    // // Clear table.
-    // d3.select("tbody").html("")
-    
-    // // Re-render table with filtered data.
-    // filteredData.forEach((ufoReport) => {
-    //     const row = tbody.append("tr");
-    //     for (key in ufoReport){
-    //         const cell = tbody.append("td");
-    //         cell.text(ufoReport[key]);
-    //     }
-    // });
 });
