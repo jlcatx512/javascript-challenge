@@ -39,21 +39,39 @@ filterBtn.on("click", function(){
     // Display value in console.
     console.log('inputDate is ' + inputDate);
 
-    // Filter data for objects with matching date.
+    // Filter data for objects with matching date. Stick to strict equality.
     const filteredData = tableData.filter(tableData => tableData.datetime === inputDate);
 
-    // Display filterData array in console.
+    // Display length of filterData array and array itself in console.
+    console.log("Length of filteredData is " + filteredData.length)
     console.log(filteredData);
+
+    if (filteredData > 0) {
+        //  block of code to be executed if the condition is true
+        d3.select("tbody").html("NO RESULTS!")
+        } else {
+        
+        //  block of code to be executed if the condition is false
+        d3.select("tbody").html("")
+
+        filteredData.forEach((ufoReport) => {
+            const row = tbody.append("tr");
+            for (key in ufoReport){
+                const cell = tbody.append("td");
+                cell.text(ufoReport[key]);
+            }
+        });
+      }
     
-    // Clear table.
-    d3.select("tbody").html("")
+    // // Clear table.
+    // d3.select("tbody").html("")
     
-    // Re-render table with filtered data.
-    filteredData.forEach((ufoReport) => {
-        const row = tbody.append("tr");
-        for (key in ufoReport){
-            const cell = tbody.append("td");
-            cell.text(ufoReport[key]);
-        }
-    });
+    // // Re-render table with filtered data.
+    // filteredData.forEach((ufoReport) => {
+    //     const row = tbody.append("tr");
+    //     for (key in ufoReport){
+    //         const cell = tbody.append("td");
+    //         cell.text(ufoReport[key]);
+    //     }
+    // });
 });
